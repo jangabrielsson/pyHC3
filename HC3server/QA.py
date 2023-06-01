@@ -1,31 +1,39 @@
-import lupa
 from lupa import LuaRuntime
 from queue import PriorityQueue
 import threading
 import itertools
 import time
+import json
 from datetime import datetime
 from os import path
 import re
-import HC3server.api as api
+from HC3server import api
+from HC3server import config
+
+client = None 
 
 def api_get(url):
-    return api.http_get(url)
+    res = config.client.get("/api"+url)
+    return res.text,res.status_code
 
 def api_post(url, data):
-    return api.http_post(url, data)
-
-def api_post(url, data):
-    return api.http_post(url, data)
+    res = config.client.post("/api"+url,data=data)
+    return res.text,res.status_code
 
 def api_put(url, data):
     return api.http_put(url, data)
 
+def api_put(url, data):
+    res = config.client.put("/api"+url,data=data)
+    return res.text,res.status_code
+
 def api_delete(url, data):
-    return api.http_delete(url, data)
+    res = config.client.delete("/api"+url,data=data)
+    return res.text,res.status_code
 
 def fibaro_get_global_variable(name):
-    return api_get('/globalVariables/'+name)
+    res,code = api_get('/globalVariables/'+name)
+    return res,code
 
 def fibaro_get_device(id):
     return api_get('/devices/'+id)
@@ -132,6 +140,7 @@ def netCall(url,opts,success,err):
 class QA:
     QA_Name = re.compile("--%%name=(.+)")
     QA_Type = re.compile("--%%type=(.+)")
+
     def __init__(self, id, fname, props, once):
         self.fname = fname
         self.props = props

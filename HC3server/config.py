@@ -1,1 +1,2 @@
-hc3 = None
+hc3 = 42
+app = "FOO"

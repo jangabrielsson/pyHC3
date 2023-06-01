@@ -1,19 +1,21 @@
 from flask import Flask
+from flask.testing import FlaskClient
 import os
-from HC3server.HC3 import HC3
+from HC3server import config
+from HC3server import HC3
 
 app = Flask(__name__)
-
-hc3 = HC3.singleton
-HC3.app = app
+config.app = app
+config.client = app.test_client() #FlaskClient(config.app)
 
 print("Working dir:",os.getcwd())
-hc3.loadAndRun("HC3server/test/mytest.lua",once=False)
-hc3.loadAndRun("HC3server/test/mytest.lua",once=False)
-
-hc3.sleep(1)
-hc3.call(100,"testcall",101,2)
 import HC3server.views
+
+config.hc3.loadAndRun("HC3server/test/mytest.lua",once=False)
+config.hc3.loadAndRun("HC3server/test/mytest.lua",once=False)
+
+config.hc3.sleep(1)
+config.hc3.call(100,"testcall",101,2)
 
 
 

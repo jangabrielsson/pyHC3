@@ -1,24 +1,24 @@
---%%name=MyQA
---%%type=com.fibaro.binarySwitch
-
+-- %%name=MyQA
+-- %%type=com.fibaro.binarySwitch
 function QuickApp:test(a, b)
     self:debug("TEST", a, b)
 end
 
-function QuickApp:pong(x,y)
-    self:debug("PONG:",x+y)
+function QuickApp:pong(x, y)
+    self:debug("PONG:", x + y)
 end
 
 function QuickApp:testrecieve(n)
-    self:debug("I:",n)
+    self:debug("I:", n)
 end
 
-function QuickApp:testcall(id,n)
-    for i=1,n do
-       fibaro.call(id,"testrecieve",i)
+function QuickApp:testcall(id, n)
+    for i = 1, n do
+        fibaro.call(id, "testrecieve", i)
     end
 
-    print("GLOBAL",fibaro.getGlobalVariable('A'))
+    print("GLOBAL1", fibaro.getGlobalVariable('A'))
+    print("GLOBAL2", json.encode((api.get("/globalVariables/A"))))
 end
 
 function QuickApp:onInit()

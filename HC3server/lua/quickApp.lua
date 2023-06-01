@@ -195,7 +195,7 @@ function QuickAppChild:__init(device)
 end
 
 function __onAction(id,actionName,args)
-  print("__onAction",id,actionName,args)
+  print("__onAction",id,actionName,args,#args)
   onAction(id,{deviceId=id,actionName=actionName,args=json.decode(args).args})
 end
 

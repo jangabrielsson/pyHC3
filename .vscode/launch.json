@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Flask",
+            "name": "HC3server: Flask",
             "type": "python",
             "request": "launch",
             "module": "flask",
